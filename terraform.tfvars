@@ -1,0 +1,8 @@
+project_id   = "your-project-id"
+region       = "us-central1"
+cluster_name = "my-gke-cluster"
+network_name = "my-vpc-network"
+subnet_name  = "my-subnet"
+vpn_gateway_name = "my-vpn-gateway"
+peer_ip = "peer-vpn-ip"
+shared_secret = "your-shared-secret"
