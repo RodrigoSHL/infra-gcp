@@ -1,8 +1,8 @@
-project_id   = "your-project-id"
+project_id   = "gke-poc-421401"
 region       = "us-central1"
-cluster_name = "my-gke-cluster"
-network_name = "my-vpc-network"
-subnet_name  = "my-subnet"
-vpn_gateway_name = "my-vpn-gateway"
-peer_ip = "peer-vpn-ip"
-shared_secret = "your-shared-secret"
+cluster_name = "mi-cluster-gke"
+network_name = "mi-red-vpc"
+subnet_name  = "mi-subred"
+vpn_gateway_name = "mi-gateway-vpn"
+peer_ip = "192.168.100.38" # Valor proporcionado por tu cliente
+shared_secret = "mi-clave-compartida" # Valor acordado con tu cliente
