@@ -27,10 +27,11 @@ jobs:
       with:
         version: 'latest'
         project_id: ${{ env.GCP_PROJECT_ID }}
-        service_account_key: ${{ env.GCP_CREDENTIALS }}
 
-    - name: Configure gcloud authentication
-      run: echo "${{ env.GCP_CREDENTIALS }}" | gcloud auth activate-service-account --key-file=-
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
