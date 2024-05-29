@@ -4,42 +4,24 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   terraform:
-    name: 'Terraform'
     runs-on: ubuntu-latest
-
-    env:
-      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
-      GCP_REGION: ${{ secrets.GCP_REGION }}
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
-      with:
-        version: 'latest'
-        project_id: ${{ env.GCP_PROJECT_ID }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
 
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v1
-      with:
-        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - name: Terraform Init
+        run: terraform init
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+      - name: Terraform Plan
+        run: terraform plan
 
-    - name: Terraform Init
-      working-directory: ./terraform
-      run: terraform init
-
-    - name: Terraform Apply
-      working-directory: ./terraform
-      run: terraform apply -auto-approve -var-file="terraform.tfvars"
+      - name: Terraform Apply
+        run: terraform apply -auto-approve

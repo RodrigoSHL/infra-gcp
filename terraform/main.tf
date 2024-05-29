@@ -3,26 +3,16 @@ provider "google" {
   region  = var.region
 }
 
-provider "google-beta" {
-  project = var.project_id
-  region  = var.region
+# Configuración de la VPN Gateway existente
+resource "google_compute_vpn_gateway" "vpn_gateway" {
+  name    = var.vpn_gateway_name
+  network = var.network_name
 }
 
-module "gke" {
-  source       = "./modules/gke"
-  project_id   = var.project_id
-  region       = var.region
-  cluster_name = var.cluster_name
-  network_name = var.network_name
-  subnet_name  = var.subnet_name
-}
+# Configuración del clúster de Kubernetes (GKE)
+resource "google_container_cluster" "primary" {
+  name     = var.cluster_name
+  location = var.region
 
-module "vpn" {
-  source           = "./modules/vpn"
-  project_id       = var.project_id
-  region           = var.region
-  vpn_gateway_name = var.vpn_gateway_name
-  peer_ip          = var.peer_ip
-  shared_secret    = var.shared_secret
-  network_name     = var.network_name
+  # Otros ajustes según sea necesario
 }
