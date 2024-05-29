@@ -9,11 +9,3 @@ variable "region" {
 variable "cluster_name" {
   description = "Nombre del clúster de Kubernetes (GKE)"
 }
-
-variable "network_name" {
-  description = "Nombre de la red VPC existente"
-}
-
-variable "vpn_gateway_name" {
-  description = "Nombre de la VPN Gateway"
-}
